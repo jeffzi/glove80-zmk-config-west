@@ -41,10 +41,31 @@
             bindings = <&mo>, <&rgb_ug_status_macro>;
         };
 
-        /* Timerless Home Row Mods */
-        /* https://github.com/urob/zmk-config#timeless-homerow-mods */
+        comma_semi: comma_semi {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COMMA>, <&kp SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
 
-        hml: home_row_mod_left {
+        question_excl: question_excl {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp EXCL>, <&kp QUESTION>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        dot_colon: dot_colon {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DOT>, <&kp COLON>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+
+        // Timerless Homerow Mods: https://github.com/urob/zmk-config#timeless-homerow-mods
+        // ZMK HRM Best Practice Values: https://docs.google.com/spreadsheets/d/1ESgObQelyz4lnKlfwLYsmofLJulOMK5RdGBsopLe2o8/edit?gid=1634016713#gid=1634016713
+        hml: homerow_mod_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -56,7 +77,7 @@
             hold-trigger-on-release;
         };
 
-        hmr: home_row_mod_right {
+        hmr: homerow_mod_right {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -141,15 +162,15 @@
             // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮                                                                                                               ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
                  &kp F1        &kp F2        &kp F3        &kp F4        &kp F5                                                                                                                        &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╮                                                                                   ╭─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                 &kp EQUAL     &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                                                                            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        &kp MINUS
+                     XXX       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                                                                            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0            XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                 &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T                                                                                             &kp Y         &kp U         &kp I         &kp O         &kp P         &kp BSLH
+                     XXX       &kp Q         &kp W         &kp E         &kp R         &kp T                                                                                             &kp Y         &kp U         &kp I         &kp O         &kp P             XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                 &kp ESC       &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHFT F  &kp G                                                                                             &kp H         &hmr RSHFT J  &hmr RGUI  K  &hmr RALT L   &hmr RCTRL SEMI &kp SQT
+                &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHFT F  &kp G                                                                                             &kp H         &hmr RSHFT J  &hmr RGUI  K  &hmr RALT L &hmr RCTRL SEMI &hmr MEH DEL
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                 &kp GRAVE     &kp Z         &kp X         &kp C         &kp V         &kp B         &kp LSHFT     &kp LCTRL     &layer_td     &kp LGUI      &kp RCTRL     &kp RSHFT     &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp PG_UP
+                     XXX       &kp Z         &kp X         &kp C         &kp V         &kp B         &kp LSHFT     &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &kp RSHFT     &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                 &magic MAGIC 0 &kp HOME     &kp END       &kp LEFT      &kp RIGHT                   &kp BSPC      &kp DEL       &kp LALT      &kp RALT      &kp RET       &kp SPACE                   &kp UP        &kp DOWN      &kp LBKT      &kp RBKT      &kp PG_DN
+                 &magic MAGIC 0 &kp END      &kp PG_DN     &kp PG_UP     &kp HOME                    &kp SPACE     &kp TAB       &kp LALT      &kp RALT      &kp BSPC      &kp RET                     &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT         XXX
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
             >;
         };
