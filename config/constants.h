@@ -9,6 +9,12 @@
 #define HYPR LC(LS(LG(LALT)))
 #define MEH LS(LC(LALT))
 
+// layers
+#define BASE 0
+#define SYM 1
+#define LOWER 2
+#define MAGIC 3
+
 // OS
 #define WINDOWS 0
 #define LINUX 1
