@@ -13,6 +13,20 @@
 
 #include "zmk-helpers/key-labels/glove80.h"
 
+/*                               GLOVE80 KEY MATRIX / LAYOUT MAPPING
+ ╭────────────────────╮       ╭────────────────────╮ ╭────────────────────╮       ╭────────────────────╮
+ │  0   1   2   3   4 ╰───┬───╯  5   6   7   8   9 │ │ LC5 LC4 LC3 LC2 LC1╰───┬───╯ RC1 RC2 RC3 RC4 RC5│
+ │ 10  11  12  13  14  15 │ 16  17  18  19  20  21 │ │ LN5 LN4 LN3 LN2 LN1 LN0│ RN0 RN1 RN2 RN3 RN4 RN5│
+ │ 22  23  24  25  26  27 │ 28  29  30  31  32  33 │ │ LT5 LT4 LT3 LT2 LT1 LT0│ RT0 RT1 RT2 RT3 RT4 RT5│
+ │ 34  35  36  37  38  39 │ 40  41  42  43  44  45 │ │ LM5 LM4 LM3 LM2 LM1 LM0│ RM0 RM1 RM2 RM3 RM4 RM5│
+ │ 46  47  48  49  50  51 │ 58  59  60  61  62  63 │ │ LB5 LB4 LB3 LB2 LB1 LB0│ RB0 RB1 RB2 RB3 RB4 RB5│
+ │ 64  65  66  67  68 ╭───┴───╮ 75  76  77  78  79 │ │ LF5 LF4 LF3 LF2 LF1╭───┴───╮ RF1 RF2 RF3 RF4 RF5│
+ ╰───────────┬────────┴───┬───┴────────┬───────────╯ ╰───────────┬────────┴───┬───┴────────┬───────────╯
+             │ 52  53  54 │ 55  56  57 │                         │ LH5 LH4 LH3│ RH3 RH4 RH5│
+             │ 69  70  71 │ 72  73  74 │                         │ LH2 LH1 LH0│ RH0 RH1 RH2│
+             ╰────────────┴────────────╯                         ╰────────────┴────────────╯
+ */
+
 #include "constants.h"
 
 /*=============================================================================
@@ -30,6 +44,8 @@
 /*=============================================================================
  * Keymap
  *============================================================================*/
+
+#define MAGIC_SHIFT &magic_shift LSHIFT 0
 
 / {
     behaviors {
@@ -52,6 +68,9 @@
             bindings = <&mo>, <&rgb_ug_status_macro>;
         };
 
+
+        // Punctuations
+
         comma_semi: comma_semi {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -72,7 +91,6 @@
             bindings = <&kp DOT>, <&kp COLON>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-
 
         // Timerless Homerow Mods: https://github.com/urob/zmk-config#timeless-homerow-mods
         // ZMK HRM Best Practice Values: https://docs.google.com/spreadsheets/d/1ESgObQelyz4lnKlfwLYsmofLJulOMK5RdGBsopLe2o8/edit?gid=1634016713#gid=1634016713
@@ -98,6 +116,17 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>; // List of keys on the left side of the keyboard
             hold-trigger-on-release;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        combo_capslock{
+            timeout-ms = <50>;
+            key-positions = <52 57>;
+            bindings = <&caps_word>;
+            layers = <BASE SYM>;
         };
     };
 
@@ -173,13 +202,13 @@
             // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮                                                                                                               ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
                  &kp F1        &kp F2        &kp F3        &kp F4        &kp F5                                                                                                                        &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╮                                                                                   ╭─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     XXX       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                                                                            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0            XXX
+                 &kp F11       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                                                                            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        &kp F12
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      XXX       &kp Q         &kp W         &kp E         &kp R         &kp T                                                                                             &kp Y         &kp U         &kp I         &kp O         &kp P             XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHFT F  &kp G                                                                                             &kp H         &hmr RSHFT J  &hmr RGUI  K  &hmr RALT L &hmr RCTRL SEMI &hmr MEH DEL
+                &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHIFT F &kp G                                                                                             &kp H         &hmr RSHIFT J &hmr RGUI  K  &hmr RALT L &hmr RCTRL SEMI &hmr MEH DEL
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     XXX       &kp Z         &kp X         &kp C         &kp V         &kp B         &kp LSHFT     &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &kp RSHFT     &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
+                     XXX       &kp Z         &kp X         &kp C         &kp V         &kp B         &sk LSHIFT    &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &sk RSHIFT    &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                 &magic MAGIC 0 &kp END       &kp PG_DN     &kp PG_UP     &kp HOME                    &kp SPACE     &lt SYM RET   &kp LALT      &kp RALT      &kp TAB       &kp BSPC                    &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT         XXX
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
