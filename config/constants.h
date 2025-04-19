@@ -14,18 +14,26 @@
              ╰────────────┴────────────╯
  */
 
-#include "constants.h"
 // Keys
 #define ___ &trans
 #define XXX &none
 #define KEYS_L 27 26 25 24 23 39 38 37 36 35 51 50 49 48 47
 #define KEYS_R 28 29 30 31 32 40 41 42 43 44 58 59 60 61 62
 #define THUMBS 69 70 71 72 73 74
+
+#define NAV_LEFT &mt LG(LEFT) LEFT     // Tap: left  | Long-tap: start of line
+#define NAV_RIGHT &mt LG(RIGHT) RIGHT  // Tap: right | Long-tap: end of line
+#define NAV_UP &mt PAGE_UP UP          // Tap: up    | Long-tap: page up
+#define NAV_DOWN &mt PAGE_DOWN DOWN    // Tap: down  | Long-tap: page down
+#define NAV_BSPC &mt LA(BSPC) BSPC     // Tap: bspc  | Long-tap: delete word bwd
+#define NAV_DEL &mt LA(DEL) DEL        // Tap: del   | Long-tap: delete word fwd
+
 #define HYPR LC(LS(LG(LALT)))
 #define MEH LS(LC(LALT))
 #define HYP(key) LS(LC(LA(LG(key))))
 
 // layers
+// Must match order in which they are defined
 #define BASE 0
 #define SYM 1
 #define LOWER 2

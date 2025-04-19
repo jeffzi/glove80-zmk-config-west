@@ -39,6 +39,14 @@
   quick-tap-ms = <QUICK_TAP_MS>;
 };
 
+// Trigger tap-action on all interrupts
+&mt {
+  flavor = "tap-preferred";
+  tapping-term-ms = <220>;
+  quick-tap-ms = <220>;
+  hold-trigger-key-positions = <0>;
+};
+
 /*=============================================================================
  * Keymap
  *============================================================================*/
@@ -225,11 +233,11 @@
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      XXX       &kp Q         &kp W         &kp E         &kp R         &kp T                                                                                             &kp Y         &kp U         &kp I         &kp O         &kp P             XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHIFT F &hml HYPR G                                                                                       &hmr HYPR H   &hmr RSHIFT J &hmr RGUI  K  &hmr RALT L &hmr RCTRL SEMI &hmr MEH DEL
+                &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHIFT F &hml HYPR G                                                                                       &hmr HYPR H   &hmr RSHIFT J &hmr RGUI  K  &hmr RALT L &hmr RCTRL SEMI     NAV_DEL
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      XXX       &kp Z         &kp X         &kp C         &kp V         &kp B         &sk LSHIFT    &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &sk RSHIFT    &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                &magic MAGIC 0 &kp HOME      &kp PG_DN     &kp PG_UP     &kp END                     &kp SPACE     &lt SYM RET   &kp LALT      &kp RALT      &kp TAB       &kp BSPC                    &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT         XXX
+                &magic MAGIC 0 &kp HOME      &kp PG_DN     &kp PG_UP     &kp END                     &kp SPACE     &lt SYM RET   &kp LALT      &kp RALT      &kp TAB       NAV_BSPC                    NAV_LEFT      NAV_DOWN      NAV_UP        NAV_RIGHT         XXX
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
             >;
         };
