@@ -36,10 +36,15 @@
 // Must match order in which they are defined
 #define BASE 0
 #define SYM 1
-#define LOWER 2
-#define MAGIC 3
+#define ACC 2
+#define LOWER 3
+#define MAGIC 4
 
 // OS
 #define WINDOWS 0
 #define LINUX 1
 #define MAC_OS 2
+
+#define HOST_OS MAC_OS
+#include "zmk-helpers/helper.h"
+#include "zmk-helpers/unicode-chars/french.dtsi"
