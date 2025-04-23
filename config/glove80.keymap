@@ -11,6 +11,8 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 
+#include "constants.h"
+
 /* GLOVE80 KEY MATRIX
  ╭────────────────────╮       ╭────────────────────╮
  │  0   1   2   3   4 ╰───┬───╯  5   6   7   8   9 │
@@ -25,11 +27,16 @@
              ╰────────────┴────────────╯
  */
 
-#include "constants.h"
 
 /*=============================================================================
  * Global defaults
  *============================================================================*/
+
+// https://zmk.dev/docs/keymaps/behaviors/macros#keycode-sequences
+#undef CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS
+#define CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS 30
+#undef CONFIG_ZMK_MACRO_DEFAULT_TAP_MS
+#define CONFIG_ZMK_MACRO_DEFAULT_TAP_MS 40
 
 #define QUICK_TAP_MS 175
 
@@ -51,7 +58,7 @@
  * Keymap
  *============================================================================*/
 
-#define MAGIC_SHIFT &magic_shift LSHIFT 0
+#define TGRAVE &grave_tap 0 GRAVE
 
 / {
     behaviors {
@@ -59,7 +66,6 @@
         // Configure it as a tap dance, so the first tap (or hold) is a &mo and the second tap is a &to
         layer_td: tap_dance_0 {
             compatible = "zmk,behavior-tap-dance";
-            label = "LAYER_TAP_DANCE";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&mo LOWER>, <&to LOWER>;
@@ -67,13 +73,19 @@
 
         magic: magic_hold_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "MAGIC_HOLD_TAP";
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             bindings = <&mo>, <&rgb_ug_status_macro>;
         };
 
+        grave_tap: grave_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&tgrave_macro>, <&kp>;
+        };
 
         // Punctuations
 
@@ -201,6 +213,12 @@
                 = <&out OUT_BLE>,
                   <&bt BT_SEL 3>;
         };
+
+        tgrave_macro: tgrave_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE>, <&kp GRAVE>, <&kp GRAVE>;
+        };
     };
 
     keymap {
@@ -267,17 +285,16 @@
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╮                                                                                   ╭─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      ___           ___           ___           ___           ___           ___                                                                                               ___           ___           ___           ___           ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     ___     &fr_a_circumflex    ___     &fr_e_circumflex    ___           ___                                                                                               ___  &fr_u_circumflex &fr_i_circumflex &fr_o_circumflex ___           ___
+                     ___   &fr_a_circumflex  &kp CARET  &fr_e_circumflex &kp DOLLAR    &euro_sign                                                                                            ___ &fr_u_circumflex &fr_i_circumflex &fr_o_circumflex  ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     ___       &fr_a_grave       ___       &fr_e_grave   &fr_e_acute       ___                                                                                               ___       &fr_u_grave       ___           ___           ___           ___
+                     ___       &fr_a_grave   TGRAVE        &fr_e_grave   &fr_e_acute   &kp MINUS                                                                                         &kp UNDER     &fr_u_grave   &kp DQT       &kp SQT           ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     ___           ___           ___       &fr_c_cedilla &fr_e_diaeresis   ___           ___           ___           ___           ___           ___           ___           ___     &fr_u_diaeresis &fr_i_diaeresis   ___           ___           ___
+                     ___           ___           ___       &fr_c_cedilla &fr_e_diaeresis &kp AT          ___           ___           ___           ___           ___           ___       &kp HASH      &fr_u_diaeresis &fr_i_diaeresis ___           ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      ___           ___           ___           ___           ___                         ___           ___           ___           ___           ___           ___                         ___           ___           ___           ___           ___
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
             >;
         };
-
 
         lower_layer {
             bindings = <

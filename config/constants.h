@@ -48,3 +48,5 @@
 #define HOST_OS MAC_OS
 #include "zmk-helpers/helper.h"
 #include "zmk-helpers/unicode-chars/french.dtsi"
+
+ZMK_UNICODE_SINGLE(euro_sign, N2, N0, A, C)
