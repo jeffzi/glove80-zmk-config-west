@@ -59,6 +59,9 @@
  *============================================================================*/
 
 #define TGRAVE &grave_tap 0 GRAVE
+#define TCOPY(key) &long_press LG(C) key
+#define TCUT(key) &long_press LG(X) key
+#define TPASTE(key) &long_press LG(V) key
 
 / {
     behaviors {
@@ -110,6 +113,16 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        // Shortcuts
+
+        long_press: long_press {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <190>;
+            bindings = <&kp>, <&kp>;
+        };
+
         // Timerless Homerow Mods: https://github.com/urob/zmk-config#timeless-homerow-mods
         // ZMK HRM Best Practice Values: https://docs.google.com/spreadsheets/d/1ESgObQelyz4lnKlfwLYsmofLJulOMK5RdGBsopLe2o8/edit?gid=1634016713#gid=1634016713
         hml: homerow_mod_left {
@@ -142,7 +155,7 @@
 
         capsword_combo {
             timeout-ms = <50>;
-            key-positions = <52 57>;
+            key-positions = <39 41>;
             bindings = <&caps_word>;
             layers = <BASE SYM>;
         };
@@ -253,7 +266,7 @@
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                 &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHIFT F &hml HYPR G                                                                                       &hmr HYPR H   &hmr RSHIFT J &hmr RGUI  K  &hmr RALT L   &sl ACC       NAV_DEL
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     XXX       &kp Z         &kp X         &kp C         &kp V         &kp B         &sk LSHIFT    &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &sk RSHIFT    &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
+                     XXX       &kp Z         TCUT(X)       TCOPY(C)      TPASTE(V)      &kp B         &sk LSHIFT    &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &sk RSHIFT    &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                 &magic MAGIC 0 &kp HOME      &kp PG_DN     &kp PG_UP     &kp END                     &kp SPACE     &lt SYM RET   &kp LALT      &kp RALT      &kp TAB       NAV_BSPC                    NAV_LEFT      NAV_DOWN      NAV_UP        NAV_RIGHT         XXX
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
