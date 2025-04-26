@@ -14,6 +14,15 @@
              ╰────────────┴────────────╯
  */
 
+// OS
+#define WINDOWS 0
+#define LINUX 1
+#define MAC_OS 2
+
+#define HOST_OS MAC_OS
+#include "zmk-helpers/helper.h"
+#include "zmk-helpers/unicode-chars/french.dtsi"
+
 // Keys
 #define ___ &trans
 #define XXX &none
@@ -35,18 +44,10 @@
 // layers
 // Must match order in which they are defined
 #define BASE 0
-#define SYM 1
-#define ACC 2
-#define LOWER 3
-#define MAGIC 4
-
-// OS
-#define WINDOWS 0
-#define LINUX 1
-#define MAC_OS 2
-
-#define HOST_OS MAC_OS
-#include "zmk-helpers/helper.h"
-#include "zmk-helpers/unicode-chars/french.dtsi"
+#define ACC 1
+#define SYM 2
+#define NUM 3
+#define LOWER 4
+#define MAGIC 5
 
 ZMK_UNICODE_SINGLE(euro_sign, N2, N0, A, C)
