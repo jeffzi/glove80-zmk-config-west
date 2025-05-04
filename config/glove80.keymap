@@ -60,9 +60,13 @@
  *============================================================================*/
 
 #define TGRAVE &grave_tap 0 GRAVE
+
 #define TCOPY(key) &long_press LG(C) key
 #define TCUT(key) &long_press LG(X) key
 #define TPASTE(key) &long_press LG(V) key
+
+#define SEL_FWD &kp LA(LS(RIGHT))
+#define SEL_BWD &kp LA(LS(LEFT))
 
 / {
     behaviors {
@@ -240,6 +244,14 @@
             #binding-cells = <0>;
             bindings = <&kp GRAVE>, <&kp GRAVE>, <&kp GRAVE>;
         };
+
+        select_line: select_line {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <1>;
+            wait-ms = <1>;
+            bindings = <&kp LG(LEFT)>, <&kp LG(LS(RIGHT))>;
+        };
     };
 
     keymap {
@@ -268,15 +280,15 @@
             // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮                                                                                                               ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
                  &kp F1        &kp F2        &kp F3        &kp F4        &kp F5                                                                                                                        &kp F6        &kp F7        &kp F8        &kp F9        &kp F10
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╮                                                                                   ╭─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                 &kp F11       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                                                                            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        &kp F12
+                 &kp F11       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                                                                           &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        &kp F12
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     XXX       &kp Q         &kp W         &kp E         &kp R         &kp T                                                                                             &kp Y         &kp U         &kp I         &kp O         &kp P             XXX
+                 &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T                                                                                             &kp Y         &kp U         &kp I         &kp O         &kp P             XXX
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                 &hml HYPR ESC  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHIFT F &hml HYPR G                                                                                       &hmr HYPR H   &hmr RSHIFT J &hmr RGUI  K  &hmr RALT L   &sl ACC       NAV_DEL
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     XXX       &kp Z         TCUT(X)       TCOPY(C)      TPASTE(V)     &kp B         &sk LSHIFT    &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &sk RSHIFT    &kp N         &kp M         &comma_semi   &dot_colon   &question_excl     XXX
+                 &sk LSHIFT    &kp Z         TCUT(X)       TCOPY(C)      TPASTE(V)     &kp B         &sk LSHIFT    &kp RET       &layer_td     &kp LGUI      &kp RCTRL     &sk RSHIFT    &kp N         &kp M         &comma_semi   &dot_colon   &question_excl &sk RSHIFT
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                &magic MAGIC 0 &kp HOME      &kp PG_DN     &kp PG_UP     &kp END                     &kp SPACE     &lt SYM RET   &kp LALT      &kp RALT      &lt NUM TAB    NAV_BSPC                    NAV_LEFT      NAV_DOWN      NAV_UP        NAV_RIGHT        XXX
+                &magic MAGIC 0 SEL_BWD      &kp PG_DN      &select_line  SEL_FWD                     &kp SPACE     &lt SYM RET   &kp LALT      &kp RALT      &lt NUM TAB   NAV_BSPC                    NAV_LEFT      NAV_DOWN      NAV_UP        NAV_RIGHT         XXX
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
             >;
         };
