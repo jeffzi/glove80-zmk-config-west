@@ -174,21 +174,21 @@
 
         copy_combo {
             timeout-ms = <50>;
-            key-positions = <49 67>;
+            key-positions = <37 49>;
             bindings = <&kp LG(C)>;
             layers = <BASE>;
         };
 
         paste_combo {
             timeout-ms = <50>;
-            key-positions = <50 68>;
+            key-positions = <38 50>;
             bindings = <&kp LG(V)>;
             layers = <BASE>;
         };
 
         cut_combo {
             timeout-ms = <50>;
-            key-positions = <48 66>;
+            key-positions = <36 48>;
             bindings = <&kp LG(X)>;
             layers = <BASE>;
         };
