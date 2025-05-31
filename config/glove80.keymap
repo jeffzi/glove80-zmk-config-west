@@ -60,6 +60,7 @@
  *============================================================================*/
 
 #define TGRAVE &grave_tap 0 GRAVE
+#define TUNDER &under_tap 0 UNDER
 
 #define TCOPY(key) &long_press LG(C) key
 #define TCUT(key) &long_press LG(X) key
@@ -93,6 +94,14 @@
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             bindings = <&tgrave_macro>, <&kp>;
+        };
+
+         under_tap: under_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&tunder_macro>, <&kp>;
         };
 
         // Punctuations
@@ -245,6 +254,12 @@
             bindings = <&kp GRAVE>, <&kp GRAVE>, <&kp GRAVE>;
         };
 
+        tunder_macro: tunder_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp UNDER>, <&kp UNDER>;
+        };
+
         select_line: select_line {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -300,11 +315,11 @@
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────╮                                                                                   ╭─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      ___           ___           ___           ___           ___           ___                                                                                               ___           ___           ___           ___           ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     ___   &fr_a_circumflex  &kp CARET  &fr_e_circumflex &kp DOLLAR    &euro_sign                                                                                            ___ &fr_u_circumflex &fr_i_circumflex &fr_o_circumflex  ___           ___
+                     ___   &fr_a_circumflex  &kp CARET  &fr_e_circumflex &euro_sign    &fr_u_circumflex                                                                                  &kp DOLLAR  &fr_i_circumflex &fr_o_circumflex  ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤                                                                                   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     ___       &fr_a_grave   TGRAVE        &fr_e_grave   &fr_e_acute   &kp MINUS                                                                                         &kp UNDER     &fr_u_grave   &kp DQT       &kp SQT           ___           ___
+                     ___       &fr_a_grave   TUNDER        &fr_e_grave   &fr_e_acute   &kp MINUS                                                                                         TGRAVE        &fr_u_grave   &kp DQT       &kp SQT           ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     ___       &kp PERCENT       ___       &fr_c_cedilla &fr_e_diaeresis &kp AT          ___           ___           ___           ___           ___           ___       &kp HASH      &fr_u_diaeresis &fr_i_diaeresis ___           ___           ___
+                     ___           ___           ___       &fr_c_cedilla &fr_e_diaeresis &kp AT          ___           ___           ___           ___           ___           ___       &kp HASH      &fr_u_diaeresis &fr_i_diaeresis ___           ___           ___
             // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      ___           ___           ___           ___           ___                         ___           ___           ___           ___           ___           ___                         ___           ___           ___           ___           ___
             // ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯             ╰─────────────┴─────────────┴─────────────┴─────────────┴─────────────╯
