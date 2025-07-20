@@ -46,8 +46,7 @@
 #define BASE 0
 #define ACC 1
 #define SYM 2
-#define NUM 3
-#define LOWER 4
-#define MAGIC 5
+#define LOWER 3
+#define MAGIC 4
 
 ZMK_UNICODE_SINGLE(euro_sign, N2, N0, A, C)
