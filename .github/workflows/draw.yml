@@ -1,0 +1,40 @@
+name: Draw keymap
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - config/**
+      - keymap-drawer/**
+      - .github/workflows/draw.yml
+
+permissions:
+  contents: read
+
+jobs:
+  # A push to main commits the rendered SVG and YAML.
+  commit:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@v0.23.0
+    permissions:
+      contents: write
+    with:
+      install_version: 0.23.0
+      keymap_patterns: config/glove80.keymap
+      config_path: keymap-drawer/config.yaml
+      output_folder: keymap-drawer
+      destination: commit
+      commit_message: "docs(keymap): update keymap drawing"
+      fail_on_error: true
+
+  # Other branches and manual runs only upload the drawing, so they never gain bot commits.
+  artifact:
+    if: github.event_name != 'push' || github.ref != 'refs/heads/main'
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@v0.23.0
+    with:
+      install_version: 0.23.0
+      keymap_patterns: config/glove80.keymap
+      config_path: keymap-drawer/config.yaml
+      output_folder: keymap-drawer
+      destination: artifact
+      fail_on_error: true
