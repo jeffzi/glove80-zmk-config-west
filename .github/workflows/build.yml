@@ -1,5 +1,22 @@
-on: [push, pull_request, workflow_dispatch]
+name: Build ZMK firmware
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - config/**
+      - build.yaml
+      - .github/workflows/**
+  pull_request:
+    paths:
+      - config/**
+      - build.yaml
+      - .github/workflows/**
+
+permissions:
+  contents: read
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    # Keep this ref on the same commit as the zmk revision in config/west.yml.
+    uses: moergo-sc/zmk/.github/workflows/build-user-config.yml@4b2f3b9b718a4508e87111cdec24cda16f3c2726

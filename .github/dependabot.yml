@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 14
+    groups:
+      actions:
+        patterns:
+          - "*"
+    ignore:
+      # Bumped by hand together with the zmk revision in config/west.yml.
+      - dependency-name: moergo-sc/zmk
