@@ -1,0 +1,66 @@
+/* Global defaults */
+
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <TAPPING_TERM_MS>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+// Trigger tap-action on all interrupts
+&mt {
+    flavor = "tap-preferred";
+    tapping-term-ms = <NAV_TAPPING_TERM_MS>;
+    quick-tap-ms = <NAV_TAPPING_TERM_MS>;
+    hold-trigger-key-positions = <0>;
+};
+
+&uc {
+    default-mode = <UC_MODE_MACOS>; // Requires the "Unicode Hex Input" macOS input source
+};
+
+/* Layer keys */
+
+// Tap or hold: momentary LOWER | Double-tap: switch to LOWER
+ZMK_TAP_DANCE(layer_td, bindings = <&mo LOWER>, <&to LOWER>;
+              tapping-term-ms = <TAPPING_TERM_MS>;)
+
+// Tap: RGB status overlay | Hold: momentary layer
+ZMK_HOLD_TAP(magic, bindings = <&mo>, <&rgb_ug_status_macro>;
+             flavor = "tap-preferred"; tapping-term-ms = <TAPPING_TERM_MS>;)
+
+/* Shift */
+
+// Tap: sticky shift | Shift + tap or double-tap: caps word | Hold: shift
+ZMK_MOD_MORPH(magic_shift, bindings = <&sk LSHIFT>, <&caps_word>;
+              mods = <(MOD_LSFT|MOD_RSFT)>;)
+
+/* Homerow mods */
+
+// Timeless homerow mods: https://github.com/urob/zmk-config#timeless-homerow-mods
+// Best-practice values: https://docs.google.com/spreadsheets/d/1ESgObQelyz4lnKlfwLYsmofLJulOMK5RdGBsopLe2o8/edit?gid=1634016713#gid=1634016713
+ZMK_HOLD_TAP(hml, bindings = <&kp>, <&kp>; flavor = "balanced";
+             tapping-term-ms = <HRM_TAPPING_TERM_MS>; quick-tap-ms = <QUICK_TAP_MS>;
+             require-prior-idle-ms = <PRIOR_IDLE_MS>;
+             hold-trigger-key-positions = <KEYS_R THUMBS>; hold-trigger-on-release;)
+
+/* Punctuation */
+
+#define SHIFT_MORPH(NAME, BINDING, SHIFTED)                                                        \
+    ZMK_MOD_MORPH(NAME, bindings = <BINDING>, <SHIFTED>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+
+SHIFT_MORPH(comma_semi, &kp COMMA, &kp SEMI)
+SHIFT_MORPH(question_excl, &kp EXCL, &kp QUESTION)
+SHIFT_MORPH(dot_colon, &kp DOT, &kp COLON)
+
+/* Tap-preferred hold-taps */
+
+#define TAP_PREFERRED(NAME, HOLD, TAP, TERM)                                                       \
+    ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "tap-preferred";                         \
+                 tapping-term-ms = <TERM>;)
+
+// Tap: key | Hold: ``` or __
+TAP_PREFERRED(grave_tap, &tgrave_macro, &kp, TAPPING_TERM_MS)
+TAP_PREFERRED(under_tap, &tunder_macro, &kp, TAPPING_TERM_MS)
+
+// Tap: key | Long-press: shortcut
+TAP_PREFERRED(long_press, &kp, &kp, LONG_PRESS_TERM_MS)
