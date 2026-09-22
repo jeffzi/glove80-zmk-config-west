@@ -1,0 +1,15 @@
+ZMK_MACRO(rgb_ug_status_macro, bindings = <&rgb_ug RGB_STATUS>;)
+
+// Select a BLE profile, switching output to BLE first
+#define BT_MACRO(N) ZMK_MACRO(bt_##N, bindings = <&out OUT_BLE>, <&bt BT_SEL N>;)
+
+BT_MACRO(0)
+BT_MACRO(1)
+BT_MACRO(2)
+BT_MACRO(3)
+
+ZMK_MACRO(tgrave_macro, bindings = <&kp GRAVE>, <&kp GRAVE>, <&kp GRAVE>;)
+ZMK_MACRO(tunder_macro, bindings = <&kp UNDER>, <&kp UNDER>;)
+
+ZMK_MACRO(select_line, bindings = <&kp LG(LEFT)>, <&kp LG(LS(RIGHT))>; tap-ms = <1>;
+          wait-ms = <1>;)
