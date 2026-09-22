@@ -1,67 +1,100 @@
-# `west`-based Custom ZMK Configuration for MoErgo Glove80
+# Glove80 ZMK config
 
-![MoErgo Logo](moergo_logo.png)
+ZMK firmware configuration for a [MoErgo Glove80](https://www.moergo.com/), tuned for macOS. It
+builds against [MoErgo's ZMK fork](https://github.com/moergo-sc/zmk) with
+[urob's modules](https://github.com/urob) for helper macros, Num Word, and Unicode input.
 
-This template repository provides `west`-based ZMK configuration for the MoErgo Glove80 wireless
-split contoured keyboard. You can use this template repository to develop your own keymap and build
-your own ZMK firmware to run on your Glove80 using ZMK/Zephyr's upstream `west` toolchain.
+## Layout
 
-**NOTE: You can also customize the layout of your Glove80 keyboard with the
-[Glove80 Layout Editor](https://my.glove80.com) web app, or the
-[official ZMK configuration repository template](https://github.com/moergo-sc/glove80-zmk-config).
-For most users, the Glove80 Layout Editor is the recommended and simpler option. More information is
-available at the official MoErgo Glove80 Support site (see resources below).**
+![Glove80 keymap: base, accent, symbol, lower, and magic layers, with combos](keymap-drawer/glove80.svg)
 
-These steps will get you using your keymap on your keyboard in the fastest time possible. It uses
-the GitHub Actions feature to build your firmware online.
+A workflow redraws this diagram after every keymap change on `main`.
 
-If you are looking to dig deeper into ZMK and develop new functionality, it is recommended to follow
-the steps of installing ZMK as found on the official ZMK documentation site (linked below).
+## Special keys
 
-## Resources
+### Magic shift
 
-- The [official MoErgo Glove80 Support](https://moergo.com/glove80-support) web site. Glove80
-  documentation and other technical resources.
-- The [official MoErgo Discord Server](https://moergo.com/discord). Instant conversations with other
-  Glove80 users.
+The upper-left thumb key is a Shift with three jobs:
 
-- The [official ZMK Documentation](https://zmk.dev/docs) web site. Find the answers to many of your
-  questions about ZMK Firmware.
-- The [official ZMK Discord Server](https://discord.gg/8cfMkQksSB). Instant conversations with other
-  ZMK developers and users. Great technical resource!
+- Hold it for Shift.
+- Tap it for a one-shot (sticky) Shift that applies to the next key.
+- Tap it while Shift is active, for example the second tap of a double tap, to turn on Caps Word.
 
-- The [official Glove80 ZMK Distribution](https://github.com/moergo-sc/zmk). Repositiory for ZMK
-  firmware customized for Glove80.
+The two pinky Shifts and the right thumb Shift are plain sticky Shifts.
 
-## Instructions
+### Magic key
 
-1. Log into, or sign up for, your personal GitHub account.
-2. Create your own repository using this repository as a template
-   ([instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template]))
-   and check it out on your local computer.
-3. Add your chosen configuration such as keymap to the `config` directory as described in
-   [the ZMK documentation](https://zmk.dev/docs/user-setup)
-4. Commit and push your changes to your personal repo. Upon pushing it, GitHub Actions will start
-   building a new version of your firmware with the updated keymap.
+The bottom-left corner key shows MoErgo's RGB status overlay when tapped. Held, it opens the magic
+layer: Bluetooth profiles 0 to 3, USB output, Bluetooth clear, RGB controls, bootloader, and reset.
 
-## Firmware Files
+### Homerow mods
 
-To locate your firmware files and reflash your Glove80:
+The left home row holds Ctrl, Option, Cmd, Shift, and Hyper on A, S, D, F, and G. While one is held,
+a right-half or thumb key gets the modifier, and another left-half key types the letter, so rolls on
+the left hand stay text. Holding a homerow key alone past 280 ms also gives the modifier.
 
-1. log into GitHub and navigate to your personal config repository you just uploaded your keymap
-   changes to.
-2. Click "Actions" in the main navigation, and in the left navigation click the "Build" link.
-3. Select the desired workflow run in the centre area of the page (based on date and time of the
-   build you wish to use). You can also start a new build from this page by clicking the "Run
-   workflow" button.
-4. After clicking the desired workflow run, you should be presented with a section at the bottom of
-   the page called "Artifacts". This section contains the results of your build, in a file called
-   `firmware.zip`.
-5. Download `firmware.zip` and extract it to reveal two files, `glove80_lh-zmk.uf2` and
-   `glove80_rh-zmk.uf2`: these are the firmware for the left and right sides of the keyboard
-   respectively.
-6. Flash the firmware to Glove80 according to the user documentation on the official Glove80 Support
-   website (linked above). _Note that unlike firmware built with the standard Glove80 toolchain, you
-   must select the correct firmware file to upload to each half of the keyboard._
+### Long-tap navigation
 
-Your keyboard is now ready to use.
+These keys act on tap and do something bigger when held past 220 ms:
+
+| Key       | Tap       | Long tap               |
+| --------- | --------- | ---------------------- |
+| Down      | Down      | Page Down              |
+| Up        | Up        | Page Up                |
+| Backspace | Backspace | Delete the word before |
+| Delete    | Delete    | Delete the word after  |
+
+### Combos
+
+Press both keys within 50 ms. Combos fire only when no other key was pressed in the preceding 150
+ms, so fast typing does not trigger them.
+
+| Keys  | Action    | Layers       |
+| ----- | --------- | ------------ |
+| F + J | Caps Word | base, symbol |
+| D + K | Num Word  | base, symbol |
+| S + X | Cut       | base         |
+| D + C | Copy      | base         |
+| F + V | Paste     | base         |
+
+### Accent layer
+
+The key right of L is a one-shot switch to the accent layer. It types à â ç è é ê ë î ï ô ù û ü,
+lowercase alone and uppercase with Shift, plus €.
+
+The accented characters use macOS hold-Option hex input. Add the **Unicode Hex Input** input source
+in System Settings > Keyboard > Text Input and select it. With any other input source, the keys type
+the wrong characters.
+
+## Get the firmware
+
+A push that changes `config/`, `build.yaml`, or a workflow builds the firmware in GitHub Actions. To
+download it:
+
+1. Open **Actions** > **Build ZMK firmware** and pick a run. **Run workflow** starts a new one.
+2. Download the `firmware` artifact and unzip it. It holds `glove80_lh-zmk.uf2` for the left half
+   and `glove80_rh-zmk.uf2` for the right half.
+
+## Flash each half
+
+Each half takes its own file. Flash the left half, then the right half:
+
+1. Hold the magic key and press **Boot** on the half you are flashing: the key left of A for the
+   left half, or the outer key right of the accent key for the right half.
+2. The half mounts as a USB drive (`GLV80LHBOOT` or `GLV80RHBOOT`).
+3. Copy the matching `.uf2` file to the drive. The half reboots when the copy finishes.
+
+MoErgo's [Glove80 support site](https://moergo.com/glove80-support) documents the power-on method
+for entering the bootloader when the firmware does not respond.
+
+## Update pinned versions
+
+Every dependency is pinned so two builds of the same commit compile identical sources.
+
+- **ZMK:** bump the `zmk` revision in `config/west.yml` and the `moergo-sc/zmk` ref in
+  `.github/workflows/build.yml` together, to the same commit. Then re-pin `zephyr` to the commit of
+  the branch that ZMK's `app/west.yml` names. Dependabot skips this pin.
+- **Modules:** pin `zmk-helpers`, `zmk-auto-layer`, and `zmk-unicode` to the commit of the release
+  tag that matches the fork's ZMK version (`v0.3` today). Their `main` branches target a newer
+  Zephyr and do not build against the fork.
+- **GitHub Actions:** Dependabot opens one grouped update each month.

@@ -1,0 +1,93 @@
+parse_config:
+  # Module headers fetched by the draw workflow's `west update` (paths relative to the repo root).
+  zmk_additional_includes:
+    - zmk-helpers/include
+    - zmk-unicode/include
+    - zmk-unicode/dts
+    - zmk-auto-layer/dts
+
+  # macOS modifier glyphs, e.g. LA(LS(LEFT)) renders as ⌥⇧LEFT.
+  modifier_fn_map:
+    left_ctrl: ⌃
+    right_ctrl: ⌃
+    left_shift: ⇧
+    right_shift: ⇧
+    left_alt: ⌥
+    right_alt: ⌥
+    left_gui: ⌘
+    right_gui: ⌘
+    keycode_combiner: "{mods}{key}"
+    mod_combiner: "{mod_1}{mod_2}"
+
+  # The two split combos share a midpoint; stack them so both labels show.
+  zmk_combos:
+    combo_capsword: { align: top, offset: 0.4 }
+    combo_numword: { align: bottom, offset: 0.4 }
+
+  raw_binding_map:
+    # Homerow mods
+    "&hml LCTRL A": { t: A, h: Ctrl }
+    "&hml LALT S": { t: S, h: Opt }
+    "&hml LGUI D": { t: D, h: Cmd }
+    "&hml LSHIFT F": { t: F, h: Shift }
+    "&hml LC(LS(LG(LALT))) G": { t: G, h: Hyper }
+
+    # Shift and modifiers
+    "&magic_shift": { t: ⇧, h: sticky, s: Caps Word }
+    "&sk LSHIFT": { t: ⇧, h: sticky }
+    "&sk RSHIFT": { t: ⇧, h: sticky }
+    "&kp LGUI": ⌘
+    "&kp RGUI": ⌘
+    "&caps_word": Caps Word
+    "&num_word 2": Num Word
+
+    # Layer keys
+    "&layer_td": { t: Lower, s: 2× lock }
+    "&magic 4 0": { t: RGB Status, h: Magic }
+
+    # Navigation: tap moves or deletes, long-tap jumps or deletes a word
+    "&mt PAGE_UP UP": { t: ↑, h: Page Up }
+    "&mt PAGE_DOWN DOWN": { t: ↓, h: Page Down }
+    "&mt LA(BSPC) BSPC": { t: ⌫, h: Word ⌫ }
+    "&mt LA(DEL) DEL": { t: ⌦, h: Word ⌦ }
+    "&kp LEFT": ←
+    "&kp RIGHT": →
+    "&kp LA(LS(LEFT))": Select word ←
+    "&kp LA(LS(RIGHT))": Select word →
+
+    # Symbols
+    "&grave_tap 0 GRAVE": { t: "`", h: "```" }
+    "&under_tap 0 UNDER": { t: _, h: __ }
+    "&kp LS(BSLH)": "|"
+
+    # Combos
+    "&kp LG(C)": Copy
+    "&kp LG(V)": Paste
+    "&kp LG(X)": Cut
+
+    # Magic layer
+    "&bt_0": BT 0
+    "&bt_1": BT 1
+    "&bt_2": BT 2
+    "&bt_3": BT 3
+    "&bt BT_CLR": BT Clear
+    "&bt BT_CLR_ALL": BT Clear all
+    "&out OUT_USB": USB
+    "&bootloader": Boot
+    "&sys_reset": Reset
+
+    # Accents: lowercase on tap, uppercase with Shift.
+    "&uc 0xe0 0xc0": { t: à, s: À }
+    "&uc 0xe2 0xc2": { t: â, s: Â }
+    "&uc 0xe7 0xc7": { t: ç, s: Ç }
+    "&uc 0xe8 0xc8": { t: è, s: È }
+    "&uc 0xe9 0xc9": { t: é, s: É }
+    "&uc 0xea 0xca": { t: ê, s: Ê }
+    "&uc 0xeb 0xcb": { t: ë, s: Ë }
+    "&uc 0xee 0xce": { t: î, s: Î }
+    "&uc 0xef 0xcf": { t: ï, s: Ï }
+    "&uc 0xf4 0xd4": { t: ô, s: Ô }
+    "&uc 0xf9 0xd9": { t: ù, s: Ù }
+    "&uc 0xfb 0xdb": { t: û, s: Û }
+    "&uc 0xfc 0xdc": { t: ü, s: Ü }
+    "&uc 0x20ac 0": €

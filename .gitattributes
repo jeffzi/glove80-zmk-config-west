@@ -1,0 +1,3 @@
+# Highlight keymap files as C++, the closest language GitHub supports.
+*.dtsi text linguist-language=C++
+*.keymap text linguist-language=C++
