@@ -6,7 +6,7 @@ builds against [MoErgo's ZMK fork](https://github.com/moergo-sc/zmk) with
 
 ## Layout
 
-![Glove80 keymap: base, accent, symbol, lower, and magic layers, with combos](keymap-drawer/glove80.svg)
+![Glove80 keymap: base, gaming, accent, symbol, lower, and magic layers, with combos](keymap-drawer/glove80.svg)
 
 A workflow redraws this diagram after every keymap change on `main`.
 
@@ -56,6 +56,12 @@ ms, so fast typing does not trigger them.
 | S + X | Cut       | base         |
 | D + C | Copy      | base         |
 | F + V | Paste     | base         |
+| G + H | Gaming    | base, gaming |
+
+### Gaming layer
+
+G + H toggles the gaming layer. It is the base layer with plain A, S, D, F, and G instead of homerow
+mods, so held keys never turn into modifiers. The other combos are off while it is active.
 
 ### Accent layer
 

@@ -55,10 +55,11 @@
 // Layers
 // Must match order in which they are defined
 #define BASE 0
-#define ACC 1
-#define SYM 2
-#define LOWER 3
-#define MAGIC 4
+#define GAME 1
+#define ACC 2
+#define SYM 3
+#define LOWER 4
+#define MAGIC 5
 
 // Timings (ms)
 #define TAPPING_TERM_MS 200     // Layer-taps, tap-dances and tap-preferred hold-taps

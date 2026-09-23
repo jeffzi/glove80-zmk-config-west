@@ -39,11 +39,11 @@ parse_config:
     "&kp LGUI": ⌘
     "&kp RGUI": ⌘
     "&caps_word": Caps Word
-    "&num_word 2": Num Word
+    "&num_word 3": Num Word
 
     # Layer keys
     "&layer_td": { t: Lower, s: 2× lock }
-    "&magic 4 0": { t: RGB Status, h: Magic }
+    "&magic 5 0": { t: RGB Status, h: Magic }
 
     # Navigation: tap moves or deletes, long-tap jumps or deletes a word
     "&mt PAGE_UP UP": { t: ↑, h: Page Up }
