@@ -16,6 +16,7 @@
 
 &uc {
     default-mode = <UC_MODE_MACOS>; // Requires the "Unicode Hex Input" macOS input source
+    minimum-length = <4>;           // Unicode Hex Input needs 4 hex digits: é is sent as 00E9, not E9
 };
 
 /* Layer keys */
