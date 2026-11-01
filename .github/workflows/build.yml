@@ -19,4 +19,4 @@ permissions:
 jobs:
   build:
     # Keep this ref on the same commit as the zmk revision in config/west.yml.
-    uses: moergo-sc/zmk/.github/workflows/build-user-config.yml@4b2f3b9b718a4508e87111cdec24cda16f3c2726
+    uses: moergo-sc/zmk/.github/workflows/build-user-config.yml@ce69e85f585c724142aae37ddf8a7e019ff19e93
